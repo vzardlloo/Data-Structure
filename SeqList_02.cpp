@@ -27,13 +27,41 @@ void SelectSort(SeqList *pSeq);
 int BinarySearch(SeqList *pSeq,DataType data);
 //----------------------
 
-//主函数
+//主函数（测试用例） 
 int main(){
+	int index_1,index_2; 
+	
 	SeqList L;
 	InitSeqList(&L);
 	PushFront(&L,8);
+	PushFront(&L,7);
+	PushFront(&L,6);
+	PushFront(&L,5);
 	PrintSeqList(&L);
-	
+	PushBack(&L,7);
+	PushBack(&L,9);
+	PushBack(&L,3);
+	PrintSeqList(&L);
+	PopBack(&L); 
+	PrintSeqList(&L);
+	PopFront(&L);
+	PrintSeqList(&L);
+	Insert(&L,2,2);
+	PrintSeqList(&L);
+	Erase(&L,2);
+	PrintSeqList(&L);
+	index_1 = Find(&L,9);
+	printf("位置为：%d\n",index_1);
+	index_2 = BinarySearch(&L,8);
+	printf("位置为：%d\n",index_2);
+	BubbleSort(&L);
+	PrintSeqList(&L);
+	SelectSort(&L);
+	PrintSeqList(&L);
+	Remove(&L,8);
+	PrintSeqList(&L);
+	RemoveAll(&L,7);
+	PrintSeqList(&L);
 } 
 
 //打印顺序表 
@@ -152,20 +180,22 @@ void Erase(SeqList *pSeq,int pos){
 //在顺序表中查找值为data的元素，找到返回该元素的位置，否则返回-1
 int Find(SeqList *pSeq ,DataType data){
 	assert(pSeq);
-	int i = 0;
+	int i ;
 	//遍历 
 	for(i = 0;i<pSeq->size;i++){
-		if(pSeq->array[i] = data){
+		if(pSeq->array[i] == data){
+			
 		 return i;
 	}
-	return -1;
+	
   }
+  return -1;
 }
 
 
 //删除顺序表中第一个值为data的元素
 void Remove(SeqList *pSeq,DataType data){
-	int pos = Find(pSeq,data);
+	int pos = BinarySearch(pSeq,data);
 	if(pos >= 0){
 		Erase(pSeq,pos);
 	}else{
